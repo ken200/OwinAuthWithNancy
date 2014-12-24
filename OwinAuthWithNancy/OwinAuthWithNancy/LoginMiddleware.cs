@@ -86,27 +86,6 @@ namespace OwinAuthWithNancy
         }
     }
 
-    public interface ILoginUserNameGetter
-    {
-        Task<string> GetAsync(IOwinContext context);
-    }
-
-    public class DefaultLoginUserNamgeGetter : ILoginUserNameGetter
-    {
-        private string _userNameParam;
-
-        public DefaultLoginUserNamgeGetter(string usernameParam)
-        {
-            this._userNameParam = usernameParam;
-        }
-
-        public async Task<string> GetAsync(IOwinContext context)
-        {
-            var form = await context.Request.ReadFormAsync();
-            return form.Get(_userNameParam);
-        }
-    }
-
     public class LoginMiddleware : OwinMiddleware
     {
         private LoginOptions _loginOption;
